@@ -1,17 +1,28 @@
-from flask import Flask, jsonify
+import json
+from flask import Flask, request, jsonify
+
 app = Flask(__name__)
 
-my_array = []
+def get_json():
+	with open('data.json', 'r') as f:
+		return json.load(f)
+
+def set_json(data):
+	with open('data.json', 'w') as f:
+		json.dump(data, f)
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
 	"""Get or post the array."""
 	if request.method == 'GET':
-		return jsonify(my_array)
+		return jsonify(get_json())
+
 	elif request.method == 'POST':
-		my_array = request.json
-		print(my_array)
-		return jsonify(my_array)
+		data = request.json
+		print(data)
+		set_json(data)
+		print(get_json())
+		return jsonify(data)
 
 if __name__ == '__main__':
-	app.run(debug=True)
+	app.run(use_reloader=True, debug=True)
