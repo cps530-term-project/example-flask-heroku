@@ -4,4 +4,6 @@
 https://github.com/datademofun/heroku-basic-flask
 
 ## How to run locally
-`python app.py`
+
+use the command `python app.py`.
+it will run locally on `http://localhost:5000/`.
